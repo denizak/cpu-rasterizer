@@ -9,6 +9,11 @@ namespace rasterizer
     std::uint8_t r, g, b, a;
   };
 
+  struct vector3f
+  {
+    float x, y, z;
+  };
+
   struct vector4f
   {
     float x, y, z, w;
@@ -36,5 +41,25 @@ namespace rasterizer
     result.a = max(0.f, min(255.f, c.w * 255.f));
 
     return result;
+  }
+
+  inline vector4f as_vector(vector3f const & v)
+  {
+    return {v.x, v.y, v.z, 0.f};
+  }
+
+  inline vector4f as_point(vector3f const & v)
+  {
+    return {v.x, v.y, v.z, 1.f};
+  }
+
+  inline vector4f operator - (vector4f const & v0, vector4f const & v1)
+  {
+    return {v0.x - v1.x, v0.y - v1.y, v0.z - v1.z, v0.w - v1.w};
+  }
+
+  inline float det2D(vector4f const & v0, vector4f const & v1)
+  {
+    return v0.x * v1.y - v0.y * v1.x;
   }
 }

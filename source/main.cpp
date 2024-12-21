@@ -81,6 +81,23 @@ int main()
 
     clear(color_buffer, {0.8f, 0.9f, 1.f, 1.f});
 
+    vector3f vertices[] =
+    {
+      {100.f, 100.f, 0.f},
+      {200.f, 100.f, 0.f},
+      {100.f, 200.f, 0.f},
+    };
+
+    draw(color_buffer,
+         draw_command {
+           .mesh = {
+             .positions = vertices,
+             .vertex_count = 3,
+             .color = {1.f, 0.f, 0.f, 1.f},
+           }
+         }
+    );
+
     SDL_Rect rect{.x = 0, .y = 0, .w = width, .h = height};
     SDL_BlitSurface(draw_surface, &rect, SDL_GetWindowSurface(window), &rect);
 
