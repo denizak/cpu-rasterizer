@@ -1,6 +1,7 @@
 #include <rasterizer/renderer.hpp>
 
 #include <algorithm>
+#include <cmath>
 
 namespace rasterizer
 {
@@ -21,9 +22,19 @@ namespace rasterizer
       auto v1 = as_point(command.mesh.positions[vertex_index + 1]);
       auto v2 = as_point(command.mesh.positions[vertex_index + 2]);
 
-      for (std::int32_t y = 0; y < color_buffer.height; ++y)
+      std::int32_t xmin = std::min({std::floor(v0.x), std::floor(v1.x), std::floor(v2.x)});
+      std::int32_t xmax = std::max({std::floor(v0.x), std::floor(v1.x), std::floor(v2.x)});
+      std::int32_t ymin = std::min({std::floor(v0.y), std::floor(v1.y), std::floor(v2.y)});
+      std::int32_t ymax = std::max({std::floor(v0.y), std::floor(v1.y), std::floor(v2.y)});
+
+      xmin = std::max<std::int32_t>(0, xmin);
+      xmax = std::min<std::int32_t>(color_buffer.width - 1, xmax);
+      ymin = std::max<std::int32_t>(0, ymin);
+      ymax = std::min<std::int32_t>(color_buffer.height - 1, ymax);
+
+      for (std::int32_t y = ymin; y < ymax; ++y)
       {
-        for (std::int32_t x = 0; x < color_buffer.width; ++x)
+        for (std::int32_t x = xmin; x < xmax; ++x)
         {
           vector4f p{x+ 0.5f, y + 0.5f, 0.f, 0.f};
 

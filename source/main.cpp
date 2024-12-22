@@ -84,8 +84,8 @@ int main()
     vector3f vertices[] =
     {
       {100.f, 100.f, 0.f},
-      {200.f, 100.f, 0.f},
-      {100.f, 200.f, 0.f},
+      {110.f, 100.f, 0.f},
+      {100.f, 110.f, 0.f},
     };
 
     draw(color_buffer,
